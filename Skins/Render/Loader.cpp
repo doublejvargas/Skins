@@ -22,13 +22,14 @@ Loader::~Loader()
 	}
 }
 
-RawModel Loader::LoadToVAO(const void* data, unsigned int count)
+RawModel Loader::LoadToVAO(const void* data, const unsigned int* indices, unsigned int numVertices, unsigned int numIndices)
 {
 	// Create a new VAO
 	GLuint vaoID = CreateVAO();
-	StoreDataInAttributeList(0, data, count);
+	BindIndicesBuffer(indices, numIndices); // TODO: does this matter here?
+	StoreDataInAttributeList(0, data, numVertices);
 	UnbindVAO();
-	return RawModel(vaoID, count);
+	return RawModel(vaoID, numVertices);
 }
 
 void Loader::UnbindVAO() const
@@ -62,5 +63,15 @@ void Loader::StoreDataInAttributeList(GLuint attribNumber, const void* data, uns
 	GLCall(glBufferData(GL_ARRAY_BUFFER, count * sizeof(data), data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
 	// Tell OpenGL how and where to store this VBO in the VAO
 	GLCall(glVertexAttribPointer(attribNumber, 3, GL_FLOAT, GL_FALSE, 0, nullptr)); // TODO: refer to cherno's project on how to abstract this function
+}
+
+void Loader::BindIndicesBuffer(const unsigned int* indices, unsigned int count)
+{
+	GLuint iboID;
+	ASSERT(sizeof(unsigned int) == sizeof(GLuint));
+
+	GLCall(glGenBuffers(1, &iboID));
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), indices, GL_STATIC_DRAW)) // TODO: may need to change to dynamic draw in future.
 }
 

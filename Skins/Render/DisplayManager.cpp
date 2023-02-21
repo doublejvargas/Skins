@@ -28,12 +28,12 @@ DisplayManager::~DisplayManager()
 	glfwDestroyWindow(m_Window);
 }
 
-bool DisplayManager::IsWindowOpen()
+bool DisplayManager::IsWindowOpen() const
 {
 	return !glfwWindowShouldClose(m_Window);
 }
 
-void DisplayManager::UpdateDisplay()
+void DisplayManager::UpdateDisplay() const
 {
 	// tell GLFW to get window events
 	glfwPollEvents();

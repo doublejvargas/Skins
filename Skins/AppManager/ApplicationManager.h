@@ -11,5 +11,5 @@ public:
 	void Start();
 
 private:
-	DisplayManager* m_DisplayManager;
+	DisplayManager* m_DisplayManager = nullptr;
 };

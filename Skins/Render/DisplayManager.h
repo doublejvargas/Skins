@@ -9,8 +9,8 @@ public:
 	DisplayManager(int width = 1280, int height = 720, const std::string& title = "OpenGL Window");
 	virtual ~DisplayManager();
 
-	bool IsWindowOpen();
-	void UpdateDisplay();
+	bool IsWindowOpen() const;
+	void UpdateDisplay() const;
 
 private:
 	GLFWwindow* m_Window;

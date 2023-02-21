@@ -1,7 +1,7 @@
 #include "RawModel.h"
 
 
-RawModel::RawModel(GLuint vaoID, int vertexCount)
+RawModel::RawModel(GLuint vaoID, unsigned int vertexCount)
 	: m_VaoID(vaoID), m_VertexCount(vertexCount)
 {
 }
@@ -15,7 +15,7 @@ GLuint RawModel::VaoID() const
 	return m_VaoID;
 }
 
-int RawModel::VertexCount() const
+unsigned int RawModel::VertexCount() const
 {
 	return m_VertexCount;
 }
