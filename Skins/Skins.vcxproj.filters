@@ -6,6 +6,10 @@
     <ClCompile Include="vendor\glm\detail\glm.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
     <ClCompile Include="AppManager\ApplicationManager.cpp" />
+    <ClCompile Include="Render\RawModel.cpp" />
+    <ClCompile Include="Render\Loader.cpp" />
+    <ClCompile Include="Render\Renderer.cpp" />
+    <ClCompile Include="Log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
@@ -293,6 +297,10 @@
     <ClInclude Include="vendor\glm\vector_relational.hpp" />
     <ClInclude Include="Render\DisplayManager.h" />
     <ClInclude Include="AppManager\ApplicationManager.h" />
+    <ClInclude Include="Render\RawModel.h" />
+    <ClInclude Include="Render\Loader.h" />
+    <ClInclude Include="Render\Renderer.h" />
+    <ClInclude Include="Log.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />

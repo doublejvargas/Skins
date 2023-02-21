@@ -9,6 +9,7 @@ DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const
 	
 	if (m_Window != NULL)
 	{
+		std::cout << "GLFW window created successfully" << std::endl;
 		// Set OpenGL context to the window
 		glfwMakeContextCurrent(m_Window);
 		// Set OpenGL viewport to window's full size

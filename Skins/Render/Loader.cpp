@@ -1,0 +1,66 @@
+#include "Loader.h"
+#include "Log.h"
+
+Loader::Loader()
+{
+	m_VAOS.clear();
+	m_VBOS.clear();
+}
+
+Loader::~Loader()
+{
+	while (m_VBOS.size() > 0)
+	{
+		GLCall(glDeleteBuffers(1, &m_VBOS.back()));
+		GLCall(m_VBOS.pop_back());
+	}
+
+	while (m_VAOS.size() > 0)
+	{
+		GLCall(glDeleteBuffers(1, &m_VAOS.back()));
+		m_VAOS.pop_back();
+	}
+}
+
+RawModel Loader::LoadToVAO(const void* data, unsigned int count)
+{
+	// Create a new VAO
+	GLuint vaoID = CreateVAO();
+	StoreDataInAttributeList(0, data, count);
+	UnbindVAO();
+	return RawModel(vaoID, count);
+}
+
+void Loader::UnbindVAO() const
+{
+	GLCall(glBindVertexArray(0));
+}
+
+GLuint Loader::CreateVAO()
+{
+	GLuint vaoID;
+	// Create a new VAO
+	GLCall(glGenVertexArrays(1, &vaoID));
+	// Store the VAO in our local list
+	m_VAOS.push_back(vaoID);
+	// Bind the VAO to use it
+	GLCall(glBindVertexArray(vaoID));
+	
+	return vaoID;
+}
+
+void Loader::StoreDataInAttributeList(GLuint attribNumber, const void* data, unsigned int count)
+{
+	GLuint vboID;
+	// Create new buffer
+	GLCall(glGenBuffers(1, &vboID));
+	// Store the buffer in our local list
+	m_VBOS.push_back(vboID);
+	// Bind the buffer to use it
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, vboID));
+	// Store the data in the buffer
+	GLCall(glBufferData(GL_ARRAY_BUFFER, count * sizeof(data), data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
+	// Tell OpenGL how and where to store this VBO in the VAO
+	GLCall(glVertexAttribPointer(attribNumber, 3, GL_FLOAT, GL_FALSE, 0, nullptr)); // TODO: refer to cherno's project on how to abstract this function
+}
+
