@@ -1,8 +1,10 @@
+#include "AppManager/ApplicationManager.h"
 #include <iostream>
 
 int main()
 {
-	std::cout << "Hello world!" << std::endl;
+	ApplicationManager app;
+	app.Start();
 	
 	return 0;
 }
