@@ -4,6 +4,7 @@
 #include "Render/Loader.h"
 #include "Render/Renderer.h"
 #include "Render/RawModel.h"
+#include "Shader/BasicShader.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -45,6 +46,8 @@ void ApplicationManager::Start()
 	Loader loader;
 	Renderer renderer;
 
+	BasicShader shader("BasicShader");
+
 	float vertices[] = {
 		-0.5f,  0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
@@ -63,7 +66,9 @@ void ApplicationManager::Start()
 	while (m_DisplayManager->IsWindowOpen())
 	{
 		renderer.Prepare();
+		shader.Bind();
 		renderer.Render(model);
+		shader.Unbind();
 
 		m_DisplayManager->UpdateDisplay();
 	}

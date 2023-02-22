@@ -19,6 +19,6 @@ private:
 	std::vector<GLuint> m_VBOS;
 	
 	GLuint CreateVAO();
-	void StoreDataInAttributeList(GLuint attribNumber, const void* data, unsigned int count);
+	void StoreDataInAttributeList(GLuint layoutloc, const void* data, unsigned int count);
 	void BindIndicesBuffer(const unsigned int* indices, unsigned int count);
 };

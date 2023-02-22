@@ -22,7 +22,7 @@ void Renderer::Render(const RawModel& model) const
 	GLCall(glEnableVertexAttribArray(0)); // hard coded 0 because it is the only one we're using for this part -- the positions
 
 	// Draw the model
-	GLCall(glDrawElements(GL_TRIANGLES, model.VertexCount(), GL_UNSIGNED_INT, 0)); // TODO: abstract such that vertex count, type of 3rd param
+	GLCall(glDrawElements(GL_TRIANGLES, model.VertexCount(), GL_UNSIGNED_INT, nullptr)); // TODO: abstract such that vertex count, type of 3rd param
 	                                                                               //       and offset are not hard coded.
 
 	GLCall(glDisableVertexAttribArray(0));

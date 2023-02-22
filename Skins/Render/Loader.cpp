@@ -50,7 +50,7 @@ GLuint Loader::CreateVAO()
 	return vaoID;
 }
 
-void Loader::StoreDataInAttributeList(GLuint attribNumber, const void* data, unsigned int count)
+void Loader::StoreDataInAttributeList(GLuint layoutloc , const void* data, unsigned int count)
 {
 	GLuint vboID;
 	// Create new buffer
@@ -62,7 +62,7 @@ void Loader::StoreDataInAttributeList(GLuint attribNumber, const void* data, uns
 	// Store the data in the buffer
 	GLCall(glBufferData(GL_ARRAY_BUFFER, count * sizeof(data), data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
 	// Tell OpenGL how and where to store this VBO in the VAO
-	GLCall(glVertexAttribPointer(attribNumber, 3, GL_FLOAT, GL_FALSE, 0, nullptr)); // TODO: refer to cherno's project on how to abstract this function
+	GLCall(glVertexAttribPointer(layoutloc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0)); // TODO: refer to cherno's project on how to abstract this function
 }
 
 void Loader::BindIndicesBuffer(const unsigned int* indices, unsigned int count)

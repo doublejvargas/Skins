@@ -10,6 +10,8 @@
     <ClCompile Include="Render\Loader.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Shader\ShaderProgram.cpp" />
+    <ClCompile Include="Shader\BasicShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
@@ -301,6 +303,8 @@
     <ClInclude Include="Render\Loader.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Shader\ShaderProgram.h" />
+    <ClInclude Include="Shader\BasicShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />
@@ -439,5 +443,7 @@
     <None Include="vendor\glm\gtx\vector_angle.inl" />
     <None Include="vendor\glm\gtx\vector_query.inl" />
     <None Include="vendor\glm\gtx\wrap.inl" />
+    <None Include="res\shaders\BasicShader.frag" />
+    <None Include="res\shaders\BasicShader.vert" />
   </ItemGroup>
 </Project>
