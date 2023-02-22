@@ -3,7 +3,7 @@
 #include "ApplicationManager.h"
 #include "Render/Loader.h"
 #include "Render/Renderer.h"
-#include "Render/RawModel.h"
+#include "Model/TexturedModel.h"
 #include "Shader/BasicShader.h"
 
 ApplicationManager::ApplicationManager()
@@ -37,6 +37,7 @@ ApplicationManager::ApplicationManager()
 
 ApplicationManager::~ApplicationManager()
 {
+	// Delete the display and clean up GLFW
 	delete m_DisplayManager;
 	glfwTerminate();
 }
@@ -60,12 +61,24 @@ void ApplicationManager::Start()
 		3, 1, 2
 	};
 
-	RawModel model = loader.LoadToVAO(vertices, indices, sizeof(vertices) / sizeof(vertices[0]), sizeof(indices) / sizeof(indices[0]));
+	float texCoords[] = {
+		0.0f, 0.0f,
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f
+	};
+
+	RawModel frame = loader.LoadToVAO(vertices, indices, texCoords,
+		sizeof(vertices) / sizeof(vertices[0]),
+		sizeof(indices) / sizeof(indices[0]),
+		sizeof(texCoords) / sizeof(texCoords[0]));
+	Texture texture(loader.LoadTexture("res/textures/link.png"));
+	TexturedModel model(frame, texture);
 
 	std::cout << "Running game loop..." << std::endl;
 	while (m_DisplayManager->IsWindowOpen())
 	{
-		renderer.Prepare();
+		renderer.Clear();
 		shader.Bind();
 		renderer.Render(model);
 		shader.Unbind();

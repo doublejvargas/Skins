@@ -11,7 +11,7 @@ public:
 
 	void Bind();
 	void Unbind();
-	GLuint programid() { return m_ProgramID; }
+	GLuint ProgramID() { return m_ProgramID; }
 
 private:
 	GLuint m_ProgramID;

@@ -31,7 +31,7 @@ ShaderProgram::ShaderProgram(const std::string& filename)
 		GLCall(glGetProgramInfoLog(m_ProgramID, infoLogLength, NULL, infoLog));
 		std::cerr << "ERROR: could not validate program \n" << infoLog << std::endl;
 		// Delete the array
-		delete infoLog;
+		delete[] infoLog;
 	}
 }
 
