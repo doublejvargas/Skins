@@ -21,6 +21,7 @@ DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const
 	else
 		std::cerr << "ERROR: Failed to create window" << std::endl;
 
+	m_AspectRatio = (float)width / (float)height;
 }
 
 DisplayManager::~DisplayManager()

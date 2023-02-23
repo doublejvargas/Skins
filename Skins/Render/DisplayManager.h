@@ -11,8 +11,9 @@ public:
 
 	bool IsWindowOpen() const;
 	void UpdateDisplay() const;
+	inline float GetAspectRatio() const { return m_AspectRatio; }
 
 private:
 	GLFWwindow* m_Window;
-
+	float m_AspectRatio;
 };

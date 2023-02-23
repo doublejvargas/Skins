@@ -19,19 +19,16 @@ Loader::~Loader()
 		GLCall(glDeleteVertexArrays(1, &m_VAOS.back()));
 		m_VAOS.pop_back();
 	}
-
 	while (m_VBOS.size() > 0)
 	{
 		GLCall(glDeleteBuffers(1, &m_VBOS.back()));
 		m_VBOS.pop_back();
 	}
-
 	while (m_IBOS.size() > 0)
 	{
 		GLCall(glDeleteBuffers(1, &m_IBOS.back()));
 		m_IBOS.pop_back();
 	}
-	
 	while (m_Textures.size() > 0)
 	{
 		GLCall(glDeleteTextures(1, &m_Textures.back()));
@@ -59,31 +56,25 @@ GLuint Loader::LoadTexture(const std::string& path)
 	int width, height, bpp;
 	// Load image data
 	unsigned char* databuffer = stbi_load(path.c_str(), &width, &height, &bpp, 4);
-
 	if (!databuffer)
 	{
 		std::cerr << "ERROR: texture loading failed for: " << path << std::endl;
 		return -1;
 	}
-
 	// Generate and bind a OpenGL texture
 	GLCall(glGenTextures(1, &id));
 	GLCall(glBindTexture(GL_TEXTURE_2D, id));
-
 	// Tell OpenGL how to fill an area that's too big or too small
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
 	// Store the OpenGL texture data
 	GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, databuffer));
 	// Unbind texture
 	GLCall(glBindTexture(GL_TEXTURE_2D, 0));
-
 	// Store the buffer in the list
 	m_Textures.push_back(id);
-
 	// Unload image data
 	stbi_image_free(databuffer);
 
@@ -110,15 +101,6 @@ GLuint Loader::CreateVAO()
 
 void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, unsigned int count, GLenum type, const void* data)
 {
-	/*unsigned int bytesize = 0;
-	switch (type)
-	{
-	case GL_FLOAT:			bytesize = sizeof(GLfloat);
-	case GL_UNSIGNED_INT:	bytesize = sizeof(GLuint);
-	case GL_UNSIGNED_BYTE:	bytesize = sizeof(GLchar);
-	default:				bytesize = sizeof(GLfloat);
-	}*/
-
 	GLuint vboID;
 	// Create new buffer
 	GLCall(glGenBuffers(1, &vboID));

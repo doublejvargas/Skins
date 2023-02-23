@@ -14,6 +14,8 @@
     <ClCompile Include="Shader\BasicShader.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
     <ClCompile Include="Model\TexturedModel.cpp" />
+    <ClCompile Include="Toolbox\Math.cpp" />
+    <ClCompile Include="Model\Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
@@ -309,6 +311,8 @@
     <ClInclude Include="Shader\BasicShader.h" />
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="Model\TexturedModel.h" />
+    <ClInclude Include="Toolbox\Math.h" />
+    <ClInclude Include="Model\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />

@@ -10,8 +10,3 @@ Texture::Texture(GLuint id)
 Texture::~Texture()
 {
 }
-
-GLuint Texture::ID() const
-{
-	return m_TextureID;
-}
