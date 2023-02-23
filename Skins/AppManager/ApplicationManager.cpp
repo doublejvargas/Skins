@@ -52,50 +52,45 @@ void ApplicationManager::Start()
 	Renderer renderer(shader, m_DisplayManager->GetAspectRatio());
 
 	float vertices[] = {
-		-0.5f, 0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, 0.5f, -0.5f,
-
-		-0.5f, 0.5f, 0.5f,
-		-0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,
-		0.5f, 0.5f, 0.5f,
-
-		0.5f, 0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, 0.5f,
-		0.5f, 0.5f, 0.5f,
-
-		-0.5f, 0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f, 0.5f,
-		-0.5f, 0.5f, 0.5f,
-
-		-0.5f, 0.5f, 0.5f,
-		-0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, 0.5f,
-
-		-0.5f, -0.5f, 0.5f,
-		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, 0.5f
+		// Front face
+		-1.0, -1.0, 1.0,
+		1.0, -1.0, 1.0,
+		1.0, 1.0, 1.0,
+		-1.0, 1.0, 1.0,
+		// Back face
+		-1.0, -1.0, -1.0,
+		-1.0, 1.0, -1.0,
+		1.0, 1.0, -1.0,
+		1.0, -1.0, -1.0,
+		// Top face
+		-1.0, 1.0, -1.0,
+		-1.0, 1.0, 1.0,
+		1.0, 1.0, 1.0,
+		1.0, 1.0, -1.0,
+		// Bottom face
+		-1.0, -1.0, -1.0,
+		1.0, -1.0, -1.0,
+		1.0, -1.0, 1.0,
+		-1.0, -1.0, 1.0,
+		// Right face
+		1.0, -1.0, -1.0,
+		1.0, 1.0, -1.0,
+		1.0, 1.0, 1.0,
+		1.0, -1.0, 1.0,
+		// Left face
+		-1.0, -1.0, -1.0,
+		-1.0, -1.0, 1.0,
+		-1.0, 1.0, 1.0,
+		-1.0, 1.0, -1.0
 	};
 
 	unsigned int indices[] = {
-		0, 1, 3,
-		3, 1, 2,
-		4, 5, 7,
-		7, 5, 6,
-		8, 9, 11,
-		11, 9, 10,
-		12, 13, 15,
-		15, 13, 14,
-		16, 17, 19,
-		19, 17, 18,
-		20, 21, 23,
-		23, 21, 22
+		0, 1, 2, 0, 2, 3,    // front
+		4, 5, 6, 4, 6, 7,    // back
+		8, 9, 10, 8, 10, 11,   // top
+		12, 13, 14, 12, 14, 15,   // bottom
+		16, 17, 18, 16, 18, 19,   // right
+		20, 21, 22, 20, 22, 23    // left
 	};
 
 	float texCoords[] = {
@@ -132,7 +127,7 @@ void ApplicationManager::Start()
 	Texture texture(loader.LoadTexture("res/textures/link.png"));
 	TexturedModel model(frame, texture);
 
-	Entity entity(model, glm::vec3(0, 0, -5), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(model, glm::vec3(0, 0, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
 	// TODO: instead of implementing camera, modify it to implement a CONTROL class to move objects and view.
 	std::cout << "Running game loop..." << std::endl;

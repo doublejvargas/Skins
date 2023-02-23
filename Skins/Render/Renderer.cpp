@@ -6,6 +6,14 @@
 
 Renderer::Renderer(BasicShader& shader, const float& aspect)
 {
+	// Don't draw faces we can't see. Improves performance
+	GLCall(glEnable(GL_CULL_FACE));
+	GLCall(glCullFace(GL_BACK));
+	// Tell OpenGL to test for depth
+	GLCall(glEnable(GL_DEPTH_TEST));
+	// Set clear color
+	GLCall(glClearColor(0.1f, 0.2f, 0.3f, 1.0f));
+
 	m_ProjectionMatrix = glm::perspective(FOV, aspect, NEAR_PLANE, FAR_PLANE);
 
 	shader.Bind();
@@ -19,10 +27,10 @@ Renderer::~Renderer()
 
 void Renderer::Clear() const
 {
-	// Tell opengl to test for depth
-	GLCall(glEnable(GL_DEPTH_TEST));
-	// Set clear color and clear the screen
-	GLCall(glClearColor(1.0f, 0.0f, 0.0f, 1.0f));
+	//// Tell opengl to test for depth
+	//GLCall(glEnable(GL_DEPTH_TEST));
+	//// Set clear color and clear the screen
+	//GLCall(glClearColor(1.0f, 0.0f, 0.0f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 

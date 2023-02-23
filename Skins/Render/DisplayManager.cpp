@@ -36,7 +36,8 @@ bool DisplayManager::IsWindowOpen() const
 
 void DisplayManager::UpdateDisplay() const
 {
-	// tell GLFW to get window events
-	glfwPollEvents();
+	// Tell GLFW to swap buffers
 	glfwSwapBuffers(m_Window);
+	// Tell GLFW to get window events
+	glfwPollEvents();
 }
