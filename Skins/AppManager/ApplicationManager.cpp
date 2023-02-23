@@ -1,7 +1,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "ApplicationManager.h"
-#include "Render/Loader.h"
+#include "Render/OBJLoader.h"
 #include "Render/Renderer.h"
 #include "Model/TexturedModel.h"
 #include "Shader/BasicShader.h"
@@ -51,89 +51,20 @@ void ApplicationManager::Start()
 
 	Renderer renderer(shader, m_DisplayManager->GetAspectRatio());
 
-	float vertices[] = {
-		// Front face
-		-1.0, -1.0, 1.0,
-		1.0, -1.0, 1.0,
-		1.0, 1.0, 1.0,
-		-1.0, 1.0, 1.0,
-		// Back face
-		-1.0, -1.0, -1.0,
-		-1.0, 1.0, -1.0,
-		1.0, 1.0, -1.0,
-		1.0, -1.0, -1.0,
-		// Top face
-		-1.0, 1.0, -1.0,
-		-1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0,
-		1.0, 1.0, -1.0,
-		// Bottom face
-		-1.0, -1.0, -1.0,
-		1.0, -1.0, -1.0,
-		1.0, -1.0, 1.0,
-		-1.0, -1.0, 1.0,
-		// Right face
-		1.0, -1.0, -1.0,
-		1.0, 1.0, -1.0,
-		1.0, 1.0, 1.0,
-		1.0, -1.0, 1.0,
-		// Left face
-		-1.0, -1.0, -1.0,
-		-1.0, -1.0, 1.0,
-		-1.0, 1.0, 1.0,
-		-1.0, 1.0, -1.0
-	};
-
-	unsigned int indices[] = {
-		0, 1, 2, 0, 2, 3,    // front
-		4, 5, 6, 4, 6, 7,    // back
-		8, 9, 10, 8, 10, 11,   // top
-		12, 13, 14, 12, 14, 15,   // bottom
-		16, 17, 18, 16, 18, 19,   // right
-		20, 21, 22, 20, 22, 23    // left
-	};
-
-	float texCoords[] = {
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f
-	};
-
-	RawModel frame = loader.LoadToVAO(vertices, indices, texCoords,
-		sizeof(vertices) / sizeof(vertices[0]),
-		sizeof(indices) / sizeof(indices[0]),
-		sizeof(texCoords) / sizeof(texCoords[0]));
-	Texture texture(loader.LoadTexture("res/textures/link.png"));
+	std::string object = "res/models/box.obj";
+	RawModel frame = OBJLoader::LoadObjModel(object, loader);
+	Texture texture(loader.LoadTexture("res/textures/box.png"));
 	TexturedModel model(frame, texture);
 
-	Entity entity(model, glm::vec3(0, 0, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(model, glm::vec3(0, 0, -7), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+
+	float n = 0.005f;
 
 	// TODO: instead of implementing camera, modify it to implement a CONTROL class to move objects and view.
 	std::cout << "Running game loop..." << std::endl;
 	while (m_DisplayManager->IsWindowOpen())
 	{
-		entity.ChangeRotation(glm::vec3(-0.01f, 0.01f, 0.01f));
+		entity.ChangeRotation(glm::vec3(n, n, n));
 		renderer.Clear();
 		shader.Bind();
 		shader.LoadViewMatrix(Math::CreateViewMatrix(glm::vec3(0.0f, 0.0f, 0.0f)));
@@ -141,5 +72,6 @@ void ApplicationManager::Start()
 		shader.Unbind();
 
 		m_DisplayManager->UpdateDisplay();
+		m_DisplayManager->ShowFPS();
 	}
 }

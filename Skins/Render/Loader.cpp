@@ -36,7 +36,7 @@ Loader::~Loader()
 	}
 }
 
-RawModel Loader::LoadToVAO(const void* positions, const unsigned int* indices, const void* texCoords,
+RawModel Loader::LoadToVAO(const void* positions, const char32_t* indices, const void* texCoords,
 			unsigned int numVertices, unsigned int numIndices, unsigned int numTexCoords)
 {
 	// Create a new VAO
@@ -47,7 +47,8 @@ RawModel Loader::LoadToVAO(const void* positions, const unsigned int* indices, c
 	// texture coordinates in layout location/attrib location 1
 	StoreDataInAttributeList(1, 2, numTexCoords, GL_FLOAT, texCoords);
 	UnbindVAO();
-	return RawModel(vaoID, numVertices);
+	
+	return RawModel(vaoID, numIndices);
 }
 
 GLuint Loader::LoadTexture(const std::string& path)
@@ -67,6 +68,7 @@ GLuint Loader::LoadTexture(const std::string& path)
 	// Tell OpenGL how to fill an area that's too big or too small
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+	// Tell OpenGL to clamp textures to edge (so you don't get transparent gaps)
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 	// Store the OpenGL texture data
@@ -101,6 +103,8 @@ GLuint Loader::CreateVAO()
 
 void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, unsigned int count, GLenum type, const void* data)
 {
+	/* NOTE: sizeof(data) in glBufferdata returns the size of whatever data type is contained in data.
+	*     no need to worry about hard coding, or obtaining the data type to compute count * sizeof(datatypehere) to allocate buffer. */
 	GLuint vboID;
 	// Create new buffer
 	GLCall(glGenBuffers(1, &vboID));
@@ -114,7 +118,7 @@ void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, 
 	GLCall(glVertexAttribPointer(layoutloc, dimension, type, GL_FALSE, 0, nullptr)); // TODO: refer to cherno's project on how to abstract this function
 }
 
-void Loader::BindIndicesBuffer(const unsigned int* indices, unsigned int count)
+void Loader::BindIndicesBuffer(const char32_t* indices, unsigned int count)
 {
 	GLuint iboID;
 	ASSERT(sizeof(unsigned int) == sizeof(GLuint));

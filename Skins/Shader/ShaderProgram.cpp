@@ -70,9 +70,8 @@ GLuint ShaderProgram::LoadShader(const std::string& filename, GLenum type)
 	if (file.is_open())
 	{
 		// Load file to string
-		while (file.good())
+		while (std::getline(file, line))
 		{
-			getline(file, line);
 			source.append(line + "\n");
 		}
 	}
@@ -144,7 +143,7 @@ void ShaderProgram::SetUniformVec3f(const std::string& name, const glm::vec3& va
 void ShaderProgram::SetUniformBool(const std::string& name, bool value)
 {
 	// if value == true, 1 else 0
-	GLCall(glUniform1f(GetUniformLocation(name), value ? 1 : 0));
+	GLCall(glUniform1f(GetUniformLocation(name), value ? 1.0f : 0.0f));
 }
 
 void ShaderProgram::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)

@@ -16,6 +16,7 @@
     <ClCompile Include="Model\TexturedModel.cpp" />
     <ClCompile Include="Toolbox\Math.cpp" />
     <ClCompile Include="Model\Entity.cpp" />
+    <ClCompile Include="Render\OBJLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
@@ -313,6 +314,7 @@
     <ClInclude Include="Model\TexturedModel.h" />
     <ClInclude Include="Toolbox\Math.h" />
     <ClInclude Include="Model\Entity.h" />
+    <ClInclude Include="Render\OBJLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />
