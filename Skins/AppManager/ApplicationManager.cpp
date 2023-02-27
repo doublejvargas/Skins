@@ -12,11 +12,6 @@ ApplicationManager::ApplicationManager()
 	if (glfwInit())
 	{
 		std::cout << "GLFW initialized successfully" << std::endl;
-		// Set minimum OpenGL version and options
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		//Create Display Manager (don't forget to delete the pointer in destructor)
 		m_DisplayManager = new DisplayManager(1280, 820, "Skins");
@@ -53,10 +48,10 @@ void ApplicationManager::Start()
 
 	std::string object = "res/models/box.obj";
 	RawModel frame = OBJLoader::LoadObjModel(object, loader);
-	Texture texture(loader.LoadTexture("res/textures/box.png"));
+	Texture texture(loader.LoadTexture("res/textures/doggo.png"));
 	TexturedModel model(frame, texture);
 
-	Entity entity(model, glm::vec3(0, 0, -7), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(model, glm::vec3(0, 0, -6), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
 	float n = 0.005f;
 
@@ -72,6 +67,6 @@ void ApplicationManager::Start()
 		shader.Unbind();
 
 		m_DisplayManager->UpdateDisplay();
-		m_DisplayManager->ShowFPS();
+		m_DisplayManager->ShowUPS();
 	}
 }

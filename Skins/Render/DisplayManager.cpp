@@ -1,10 +1,18 @@
 #include <iostream>
 #include "DisplayManager.h"
-
+#include <cmath> // round function
 
 DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const std::string& title /*= "OpenGL Window"*/)
-	: m_Title(title)
 {
+	m_Title = title;
+	m_AspectRatio = (float)width / (float)height;
+	
+	// Set minimum OpenGL version and options
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	
 	// Create window using GLFW
 	m_Window = glfwCreateWindow(width, height, m_Title.c_str(), NULL, NULL);
 	
@@ -22,11 +30,12 @@ DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const
 	else
 		std::cerr << "ERROR: Failed to create window" << std::endl;
 
-	m_AspectRatio = (float)width / (float)height;
+	
 }
 
 DisplayManager::~DisplayManager()
 {
+	std::cout << "Window destroyed" << std::endl;
 	glfwDestroyWindow(m_Window);
 }
 
@@ -43,7 +52,7 @@ void DisplayManager::UpdateDisplay() const
 	glfwPollEvents();
 }
 
-void DisplayManager::ShowFPS()
+void DisplayManager::ShowUPS()
 {
 	// Static variables are only initialized only once, ever
 	// Used for the size of the average array
@@ -69,7 +78,7 @@ void DisplayManager::ShowFPS()
 	average /= SIZE;
 
 	// Update the title with the FPS
-	glfwSetWindowTitle(m_Window, (m_Title + " | FPS: " + std::to_string(1.0f / average)).c_str());
+	glfwSetWindowTitle(m_Window, (m_Title + " | Updates per second: " + std::to_string((int)round(1.0f / average))).c_str());
 
 	// Store the current time
 	previous = now;

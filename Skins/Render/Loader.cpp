@@ -36,7 +36,7 @@ Loader::~Loader()
 	}
 }
 
-RawModel Loader::LoadToVAO(const void* positions, const char32_t* indices, const void* texCoords,
+RawModel Loader::LoadToVAO(const void* positions, const int* indices, const void* texCoords,
 			unsigned int numVertices, unsigned int numIndices, unsigned int numTexCoords)
 {
 	// Create a new VAO
@@ -103,8 +103,20 @@ GLuint Loader::CreateVAO()
 
 void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, unsigned int count, GLenum type, const void* data)
 {
-	/* NOTE: sizeof(data) in glBufferdata returns the size of whatever data type is contained in data.
-	*     no need to worry about hard coding, or obtaining the data type to compute count * sizeof(datatypehere) to allocate buffer. */
+	// helps determine the size of buffer to be allocated by gpu in glBufferData
+	unsigned int size = sizeof(float);
+	switch (type)
+	{
+	case GL_UNSIGNED_INT:		size = sizeof(unsigned int);
+	case GL_INT:				size = sizeof(int);
+	case GL_UNSIGNED_BYTE:		size = sizeof(char);
+	case GL_BYTE:				size = sizeof(signed char);
+	case GL_SHORT:				size = sizeof(short);
+	case GL_DOUBLE:				size = sizeof(double);
+	default:					size = sizeof(float);
+	}
+	GLbyte; GLchar;
+
 	GLuint vboID;
 	// Create new buffer
 	GLCall(glGenBuffers(1, &vboID));
@@ -113,12 +125,12 @@ void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, 
 	// Bind the buffer to use it
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, vboID));
 	// Store the data in the buffer
-	GLCall(glBufferData(GL_ARRAY_BUFFER, count * sizeof(data), data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
+	GLCall(glBufferData(GL_ARRAY_BUFFER, count * size, data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
 	// Tell OpenGL how and where to store this VBO in the VAO
 	GLCall(glVertexAttribPointer(layoutloc, dimension, type, GL_FALSE, 0, nullptr)); // TODO: refer to cherno's project on how to abstract this function
 }
 
-void Loader::BindIndicesBuffer(const char32_t* indices, unsigned int count)
+void Loader::BindIndicesBuffer(const int* indices, unsigned int count)
 {
 	GLuint iboID;
 	ASSERT(sizeof(unsigned int) == sizeof(GLuint));
@@ -128,6 +140,6 @@ void Loader::BindIndicesBuffer(const char32_t* indices, unsigned int count)
 	m_IBOS.push_back(iboID);
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID));
 	// Store the data in the buffer in opengl/ gpu
-	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(indices), indices, GL_STATIC_DRAW)) // TODO: may need to change to dynamic draw in future.
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(int), indices, GL_STATIC_DRAW)) // TODO: may need to change to dynamic draw in future.
 }
 

@@ -16,7 +16,7 @@ public:
 	*  element, which will then cause problems in StoreDataInAttributeList and BindIndicesBuffer --
 	*  more specifically the call to "glBufferData" will cause for a buffer of inappropriate size to be allocated, the data won't be
 	*  stored in the gpu, and then no image "mysteriously" displayed. Pain in the butt figuring this one out. */ 
-	RawModel LoadToVAO(const void* positions, const char32_t* indices, const void* texCoords, 
+	RawModel LoadToVAO(const void* positions, const int* indices, const void* texCoords, 
 		unsigned int numVertices, unsigned int numIndices, unsigned int numTexCoords);
 	GLuint LoadTexture(const std::string& filename);
 	void UnbindVAO() const;
@@ -29,5 +29,5 @@ private:
 
 	GLuint CreateVAO();
 	void StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, unsigned int count, GLenum type, const void* data);
-	void BindIndicesBuffer(const char32_t* indices, unsigned int count);
+	void BindIndicesBuffer(const int* indices, unsigned int count);
 };
