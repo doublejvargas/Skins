@@ -46,12 +46,14 @@ void ApplicationManager::Start()
 
 	Renderer renderer(shader, m_DisplayManager->GetAspectRatio());
 
-	std::string object = "res/models/stall.obj";
+	std::string object = "res/models/jett.obj";
 	RawModel frame = OBJLoader::LoadObjModel(object, loader);
-	Texture texture(loader.LoadTexture("res/textures/stall.png"));
+	Texture texture(loader.LoadTexture("res/textures/jett.png"));
 	TexturedModel model(frame, texture);
 
-	Entity entity(model, glm::vec3(0, 0, -15), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(model, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+
+	Light light(glm::vec3(0, 30, 0), glm::vec3(1, 1, 1));
 
 	Camera camera;
 
@@ -66,6 +68,7 @@ void ApplicationManager::Start()
 		renderer.Clear();
 		shader.Bind();
 		shader.LoadViewMatrix(camera);
+		shader.LoadLight(light);
 		renderer.Render(entity, shader);
 		shader.Unbind();
 

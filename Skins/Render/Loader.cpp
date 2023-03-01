@@ -36,19 +36,22 @@ Loader::~Loader()
 	}
 }
 
-RawModel Loader::LoadToVAO(const void* positions, const int* indices, const void* texCoords,
-			unsigned int numVertices, unsigned int numIndices, unsigned int numTexCoords)
+RawModel Loader::LoadToVAO(const std::vector<glm::vec3>& positions, const std::vector<glm::vec2>& texCoords,
+	const std::vector<glm::vec3>& normals, const std::vector<unsigned int>& indices)
 {
 	// Create a new VAO
 	GLuint vaoID = CreateVAO();
-	BindIndicesBuffer(indices, numIndices);
+	BindIndicesBuffer(indices.data(), indices.size());
 	// positions in layout location/attrib location 0
-	StoreDataInAttributeList(0, 3, numVertices, GL_FLOAT, positions);
+	StoreDataInAttributeList(0, 3, positions.size() * sizeof(glm::vec3), GL_FLOAT, &positions[0]);
 	// texture coordinates in layout location/attrib location 1
-	StoreDataInAttributeList(1, 2, numTexCoords, GL_FLOAT, texCoords);
+	StoreDataInAttributeList(1, 2, texCoords.size() * sizeof(glm::vec2), GL_FLOAT, &texCoords[0]);
+	// normals in layout location/attrib location 2
+	StoreDataInAttributeList(2, 3, normals.size() * sizeof(glm::vec3), GL_FLOAT, &normals[0]);
+
 	UnbindVAO();
 	
-	return RawModel(vaoID, numIndices);
+	return RawModel(vaoID, indices.size());
 }
 
 GLuint Loader::LoadTexture(const std::string& path)
@@ -101,22 +104,8 @@ GLuint Loader::CreateVAO()
 	return vaoID;
 }
 
-void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, unsigned int count, GLenum type, const void* data)
+void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, unsigned int bytesize, GLenum type, const void* data)
 {
-	// helps determine the size of buffer to be allocated by gpu in glBufferData
-	unsigned int size = sizeof(float);
-	switch (type)
-	{
-	case GL_UNSIGNED_INT:		size = sizeof(unsigned int);
-	case GL_INT:				size = sizeof(int);
-	case GL_UNSIGNED_BYTE:		size = sizeof(char);
-	case GL_BYTE:				size = sizeof(signed char);
-	case GL_SHORT:				size = sizeof(short);
-	case GL_DOUBLE:				size = sizeof(double);
-	default:					size = sizeof(float);
-	}
-	GLbyte; GLchar;
-
 	GLuint vboID;
 	// Create new buffer
 	GLCall(glGenBuffers(1, &vboID));
@@ -125,12 +114,12 @@ void Loader::StoreDataInAttributeList(GLuint layoutloc, unsigned int dimension, 
 	// Bind the buffer to use it
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, vboID));
 	// Store the data in the buffer
-	GLCall(glBufferData(GL_ARRAY_BUFFER, count * size, data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
+	GLCall(glBufferData(GL_ARRAY_BUFFER, bytesize, data, GL_STATIC_DRAW)); // TODO: May need to change to dynamic draw in future.
 	// Tell OpenGL how and where to store this VBO in the VAO
-	GLCall(glVertexAttribPointer(layoutloc, dimension, type, GL_FALSE, 0, nullptr)); // TODO: refer to cherno's project on how to abstract this function
+	GLCall(glVertexAttribPointer(layoutloc, dimension, type, GL_FALSE, 0, nullptr)); // TODO: refer to TheCherno's project on how to abstract this function
 }
 
-void Loader::BindIndicesBuffer(const int* indices, unsigned int count)
+void Loader::BindIndicesBuffer(const unsigned int* indices, unsigned int count)
 {
 	GLuint iboID;
 	ASSERT(sizeof(unsigned int) == sizeof(GLuint));
@@ -139,7 +128,7 @@ void Loader::BindIndicesBuffer(const int* indices, unsigned int count)
 	// Store in our local list
 	m_IBOS.push_back(iboID);
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID));
-	// Store the data in the buffer in opengl/ gpu
-	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(int), indices, GL_STATIC_DRAW)) // TODO: may need to change to dynamic draw in future.
+	// Store the data in the buffer in OpenGL/ GPU
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), indices, GL_STATIC_DRAW)) // TODO: may need to change to dynamic draw in future.
 }
 

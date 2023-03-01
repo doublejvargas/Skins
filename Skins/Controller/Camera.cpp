@@ -22,5 +22,9 @@ void Camera::Move()
 		m_Position.x -= sens;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS)
 		m_Position.x += sens;
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_Q) == GLFW_PRESS)
+		m_Position.y += sens;
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_E) == GLFW_PRESS)
+		m_Position.y -= sens;
 }
 

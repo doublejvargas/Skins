@@ -317,6 +317,7 @@
     <ClInclude Include="Model\Entity.h" />
     <ClInclude Include="Render\OBJLoader.h" />
     <ClInclude Include="Controller\Camera.h" />
+    <ClInclude Include="Shader\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />

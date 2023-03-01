@@ -12,6 +12,6 @@ public:
 	static RawModel	LoadObjModel(const std::string& path, Loader& loader);
 
 private:
-	static void ProcessVertices(char* facedata, std::vector<int>& indices, std::vector<glm::vec2>& textures,
-		std::vector<float>& texarray, std::vector<glm::vec3>& normals, std::vector<float>& normarray);
+	static void ProcessVertices(char* facedata, std::vector<unsigned int>& indices, std::vector<glm::vec2>& tempTextures,
+		std::vector<glm::vec2>& textures, std::vector<glm::vec3>& tempNormals, std::vector<glm::vec3>& normals);
 };

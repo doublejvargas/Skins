@@ -183,6 +183,7 @@
     <ClInclude Include="Render\OBJLoader.h" />
     <ClInclude Include="Render\Renderer.h" />
     <ClInclude Include="Shader\BasicShader.h" />
+    <ClInclude Include="Shader\Light.h" />
     <ClInclude Include="Shader\ShaderProgram.h" />
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="Toolbox\Math.h" />

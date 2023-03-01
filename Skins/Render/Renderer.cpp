@@ -44,6 +44,7 @@ void Renderer::Render(Entity& entity, BasicShader& shader)
 	// Enable the attrib arrays / layout locations
 	GLCall(glEnableVertexAttribArray(0)); // positions
 	GLCall(glEnableVertexAttribArray(1)); // texture coordinates
+	GLCall(glEnableVertexAttribArray(2)); // normal vectors
 	// Load transformation matrix for this entity into the shader
 	shader.LoadTransformMatrix(Math::CreateTransformationMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));
 	// Activate an OpenGL texture and tell it where the texture is
@@ -55,6 +56,7 @@ void Renderer::Render(Entity& entity, BasicShader& shader)
 	// Disable attrib arrays / layout locations
 	GLCall(glDisableVertexAttribArray(0));
 	GLCall(glDisableVertexAttribArray(1));
+	GLCall(glDisableVertexAttribArray(2));
 	GLCall(glBindVertexArray(0));
 }
 
