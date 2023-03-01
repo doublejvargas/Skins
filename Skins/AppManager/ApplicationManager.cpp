@@ -46,14 +46,14 @@ void ApplicationManager::Start()
 
 	Renderer renderer(shader, m_DisplayManager->GetAspectRatio());
 
-	std::string object = "res/models/jett.obj";
+	std::string object = "res/models/dragon.obj";
 	RawModel frame = OBJLoader::LoadObjModel(object, loader);
-	Texture texture(loader.LoadTexture("res/textures/jett.png"));
+	Texture texture(loader.LoadTexture("res/textures/dragon.png"));
 	TexturedModel model(frame, texture);
 
-	Entity entity(model, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(model, glm::vec3(0, 0, -20), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
-	Light light(glm::vec3(0, 30, 0), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
 
 	Camera camera;
 
@@ -63,7 +63,7 @@ void ApplicationManager::Start()
 	std::cout << "Running game loop..." << std::endl;
 	while (m_DisplayManager->IsWindowOpen())
 	{
-		entity.ChangeRotation(glm::vec3(0.0f, n, 0.0f));
+		entity.ChangeRotation(glm::vec3(n, n, n));
 		camera.Move();
 		renderer.Clear();
 		shader.Bind();
