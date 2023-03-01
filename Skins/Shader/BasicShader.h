@@ -2,6 +2,7 @@
 
 #include <string>
 #include "ShaderProgram.h"
+#include "Controller/Camera.h"
 
 class BasicShader : public ShaderProgram
 {
@@ -11,7 +12,7 @@ public:
 
 	void LoadTransformMatrix(const glm::mat4& matrix);
 	void LoadProjectionMatrix(const glm::mat4& matrix);
-	void LoadViewMatrix(const glm::mat4& matrix);
+	void LoadViewMatrix(Camera& camera);
 
 private:
 	const std::string m_FilePath;

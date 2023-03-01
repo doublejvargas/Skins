@@ -46,12 +46,14 @@ void ApplicationManager::Start()
 
 	Renderer renderer(shader, m_DisplayManager->GetAspectRatio());
 
-	std::string object = "res/models/box.obj";
+	std::string object = "res/models/stall.obj";
 	RawModel frame = OBJLoader::LoadObjModel(object, loader);
-	Texture texture(loader.LoadTexture("res/textures/doggo.png"));
+	Texture texture(loader.LoadTexture("res/textures/stall.png"));
 	TexturedModel model(frame, texture);
 
-	Entity entity(model, glm::vec3(0, 0, -6), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+	Entity entity(model, glm::vec3(0, 0, -15), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+
+	Camera camera;
 
 	float n = 0.005f;
 
@@ -59,10 +61,11 @@ void ApplicationManager::Start()
 	std::cout << "Running game loop..." << std::endl;
 	while (m_DisplayManager->IsWindowOpen())
 	{
-		entity.ChangeRotation(glm::vec3(n, n, n));
+		entity.ChangeRotation(glm::vec3(0.0f, n, 0.0f));
+		camera.Move();
 		renderer.Clear();
 		shader.Bind();
-		shader.LoadViewMatrix(Math::CreateViewMatrix(glm::vec3(0.0f, 0.0f, 0.0f)));
+		shader.LoadViewMatrix(camera);
 		renderer.Render(entity, shader);
 		shader.Unbind();
 

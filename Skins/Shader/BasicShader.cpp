@@ -1,5 +1,5 @@
 #include "BasicShader.h"
-
+#include "Toolbox/Math.h"
 
 BasicShader::BasicShader(const std::string& filename)
 	: ShaderProgram("res/shaders/" + filename), m_FilePath("res/shaders/" + filename) // parent class constructor
@@ -23,9 +23,9 @@ void BasicShader::LoadProjectionMatrix(const glm::mat4& matrix)
 	SetUniformMat4f("u_ProjectionMatrix", matrix);
 }
 
-void BasicShader::LoadViewMatrix(const glm::mat4& matrix)
+void BasicShader::LoadViewMatrix(Camera& camera)
 {
-	SetUniformMat4f("u_ViewMatrix", matrix);
+	SetUniformMat4f("u_ViewMatrix", Math::CreateViewMatrix(camera));
 }
 
 void BasicShader::BindAttributes()

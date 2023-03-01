@@ -16,8 +16,9 @@ glm::mat4 Math::CreateTransformationMatrix(const glm::vec3& translation, const g
 	return translationMatrix * rotationMatrix * scaleMatrix;
 }
 
-glm::mat4 Math::CreateViewMatrix(const glm::vec3& location)
+glm::mat4 Math::CreateViewMatrix(Camera& camera)
 {
-	return glm::lookAt(location, location + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0)); // camera is at (0, 0, 0) looking at objects INTO the screen (0, 0, -1)
+	// camera is at (0, 0, 0) looking at objects INTO the screen (0, 0, -1)
+	return glm::lookAt(camera.GetPosition(), camera.GetPosition() + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 }
 

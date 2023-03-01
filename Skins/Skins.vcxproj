@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AppManager\ApplicationManager.cpp" />
+    <ClCompile Include="Controller\Camera.cpp" />
     <ClCompile Include="Model\Entity.cpp" />
     <ClCompile Include="Model\TexturedModel.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppManager\ApplicationManager.h" />
+    <ClInclude Include="Controller\Camera.h" />
     <ClInclude Include="Model\Entity.h" />
     <ClInclude Include="Model\TexturedModel.h" />
     <ClInclude Include="Render\DisplayManager.h" />
