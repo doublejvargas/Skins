@@ -6,16 +6,12 @@
     <ClCompile Include="vendor\glm\detail\glm.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
     <ClCompile Include="AppManager\ApplicationManager.cpp" />
-    <ClCompile Include="Model\RawModel.cpp" />
     <ClCompile Include="Render\Loader.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Shader\ShaderProgram.cpp" />
     <ClCompile Include="Shader\BasicShader.cpp" />
-    <ClCompile Include="Textures\Texture.cpp" />
-    <ClCompile Include="Model\TexturedModel.cpp" />
     <ClCompile Include="Toolbox\Math.cpp" />
-    <ClCompile Include="Model\Entity.cpp" />
     <ClCompile Include="Render\OBJLoader.cpp" />
     <ClCompile Include="Controller\Camera.cpp" />
   </ItemGroup>

@@ -5,11 +5,10 @@
 class RawModel
 {
 public:
-	RawModel(GLuint vaoID, unsigned int vertexCount);
-	virtual ~RawModel();
+	RawModel(GLuint vaoID, unsigned int vertexCount) : m_VaoID(vaoID), m_VertexCount(vertexCount) {}
 
-	GLuint VaoID() const;
-	unsigned int VertexCount() const;
+	inline GLuint VaoID() const { return m_VaoID; }
+	inline unsigned int VertexCount() const { return m_VertexCount; }
 
 private:
 	GLuint m_VaoID;

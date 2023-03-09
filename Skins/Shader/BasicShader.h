@@ -15,6 +15,7 @@ public:
 	void LoadProjectionMatrix(const glm::mat4& matrix);
 	void LoadViewMatrix(Camera& camera);
 	void LoadLight(Light light);
+	void LoadShineVariables(float shinedamper, float reflectivity);
 
 private:
 	const std::string m_FilePath;
@@ -23,6 +24,8 @@ private:
 	GLuint m_ViewMatrixLoc;
 	GLuint m_LightPosLoc;
 	GLuint m_LightColLoc;
+	GLuint m_ShineDamperLoc;
+	GLuint m_ReflectivityLoc;
 
 protected:
 	void BindAttributes() override;

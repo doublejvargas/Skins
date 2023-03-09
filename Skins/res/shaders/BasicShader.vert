@@ -12,6 +12,7 @@ uniform vec3 u_LightPosition;
 out vec2 v_TexCoord;
 out vec3 v_NormalVector;
 out vec3 v_ToLightVector;
+out vec3 v_ToCameraVector;
 
 void main()
 {
@@ -23,6 +24,9 @@ void main()
 
 	// Get the vector of the light from the position the object is in the world
 	v_ToLightVector = u_LightPosition - worldPosition.xyz;
+
+	// Get the vector to the camera from the position of the object
+	v_ToCameraVector = (inverse(u_ViewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
 
 	// Pass texture coordinates to fragment shader
 	v_TexCoord = a_TexCoord;

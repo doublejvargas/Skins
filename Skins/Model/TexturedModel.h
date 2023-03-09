@@ -6,11 +6,10 @@
 class TexturedModel
 {
 public:
-	TexturedModel(const RawModel& model, const Texture& texture);
-	virtual ~TexturedModel();
+	TexturedModel(const RawModel& model, const Texture& texture) : m_RawModel(model), m_Texture(texture) {}
 
-	RawModel GetRawModel() const;
-	Texture GetTexture() const;
+	inline RawModel GetRawModel() const { return m_RawModel; }
+	inline Texture GetTexture() const { return m_Texture; }
 
 private:
 	RawModel m_RawModel;

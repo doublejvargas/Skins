@@ -49,11 +49,13 @@ void ApplicationManager::Start()
 	std::string object = "res/models/dragon.obj";
 	RawModel frame = OBJLoader::LoadObjModel(object, loader);
 	Texture texture(loader.LoadTexture("res/textures/dragon.png"));
+	texture.SetShineDamper(10);
+	texture.SetReflectivity(1);
 	TexturedModel model(frame, texture);
 
 	Entity entity(model, glm::vec3(0, 0, -20), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
 
-	Light light(glm::vec3(0, 10, 0), glm::vec3(1, 1, 1));
+	Light light(glm::vec3(0, 50, 0), glm::vec3(1, 1, 1));
 
 	Camera camera;
 

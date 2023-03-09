@@ -47,6 +47,9 @@ void Renderer::Render(Entity& entity, BasicShader& shader)
 	GLCall(glEnableVertexAttribArray(2)); // normal vectors
 	// Load transformation matrix for this entity into the shader
 	shader.LoadTransformMatrix(Math::CreateTransformationMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));
+	// Load shine variables from texture
+	Texture texture = texmodel.GetTexture();
+	shader.LoadShineVariables(texture.GetShineDamper(), texture.GetReflectivity());
 	// Activate an OpenGL texture and tell it where the texture is
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	GLCall(glBindTexture(GL_TEXTURE_2D, texmodel.GetTexture().ID()));
@@ -57,6 +60,7 @@ void Renderer::Render(Entity& entity, BasicShader& shader)
 	GLCall(glDisableVertexAttribArray(0));
 	GLCall(glDisableVertexAttribArray(1));
 	GLCall(glDisableVertexAttribArray(2));
+	// Unbind VAO
 	GLCall(glBindVertexArray(0));
 }
 

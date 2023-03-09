@@ -34,6 +34,12 @@ void BasicShader::LoadLight(Light light)
 	SetUniformVec3f("u_LightColor", light.Color());
 }
 
+void BasicShader::LoadShineVariables(float shinedamper, float reflectivity)
+{
+	SetUniform1f("u_ShineDamper", shinedamper);
+	SetUniform1f("u_Reflectivity", reflectivity);
+}
+
 void BasicShader::BindAttributes()
 {
 	BindAttribute(0, "a_Position");
@@ -48,4 +54,6 @@ void BasicShader::GetAllUniformLocations()
 	m_ViewMatrixLoc = GetUniformLocation("u_ViewMatrix");
 	m_LightPosLoc = GetUniformLocation("u_LightPosition");
 	m_LightColLoc = GetUniformLocation("u_LightColor");
+	m_ShineDamperLoc = GetUniformLocation("u_ShineDamper");
+	m_ReflectivityLoc = GetUniformLocation("u_Reflectivity");
 }
