@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdio.h>
 #include <GL/glew.h>
 #include <cstdlib>
 #include <ctime>
@@ -13,7 +13,7 @@ ApplicationManager::ApplicationManager()
 {
 	if (glfwInit())
 	{
-		std::cout << "GLFW initialized successfully" << std::endl;
+		printf("GLFW initialized successfully \n");
 
 		//Create Display Manager (don't forget to delete the pointer in destructor)
 		m_DisplayManager = new DisplayManager(1280, 820, "Skins");
@@ -21,15 +21,15 @@ ApplicationManager::ApplicationManager()
 		//Initialize GLEW
 		GLenum status = glewInit();
 		if (status != GLEW_OK)
-			std::cerr << "ERROR: GLEW failed to initialize \n" << glewGetErrorString(status) << std::endl;
+			printf("ERROR: GLEW failed to initialize \n%s", glewGetErrorString(status));
 		else
-			std::cout << "GLEW initialized successfully" << std::endl;
+			printf("GLEW initialized successfully\n");
 
-		std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl; // print opengl version
+		printf("OpenGL version: %s\n", glGetString(GL_VERSION));	// print opengl version
 	}
 	else
 	{
-		std::cerr << "GLFW failed to initialize" << std::endl;
+		printf("GLFW failed to initialize\n");
 	}
 }
 
@@ -75,7 +75,7 @@ void ApplicationManager::Start()
 	float n = 0.005f;
 
 	// TODO: instead of implementing camera, modify it to implement a CONTROL class to move objects and view.
-	std::cout << "Running game loop..." << std::endl;
+	printf("Running game loop...\n");
 	
 	double prevTime = glfwGetTime();
 	int frameCount = 0;
@@ -86,7 +86,7 @@ void ApplicationManager::Start()
 		renderer.Clear();
 		shader.Bind();
 		shader.LoadViewMatrix(camera);
-		shader.LoadLight(light);
+		shader.LoadLight(light, 0.15f);
 		/*renderer.Render(entity, shader);*/
 		for (Entity& e : entities)
 		{

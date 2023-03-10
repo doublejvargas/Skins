@@ -28,10 +28,11 @@ void BasicShader::LoadViewMatrix(Camera& camera)
 	SetUniformMat4f("u_ViewMatrix", Math::CreateViewMatrix(camera));
 }
 
-void BasicShader::LoadLight(Light light)
+void BasicShader::LoadLight(Light& light, float ambientLight)
 {
 	SetUniformVec3f("u_LightPosition", light.Position());
 	SetUniformVec3f("u_LightColor", light.Color());
+	SetUniform1f("u_AmbientLight", ambientLight);
 }
 
 void BasicShader::LoadShineVariables(float shinedamper, float reflectivity)
@@ -54,6 +55,7 @@ void BasicShader::GetAllUniformLocations()
 	m_ViewMatrixLoc = GetUniformLocation("u_ViewMatrix");
 	m_LightPosLoc = GetUniformLocation("u_LightPosition");
 	m_LightColLoc = GetUniformLocation("u_LightColor");
+	m_AmbientLightLoc = GetUniformLocation("u_AmbientLight");
 	m_ShineDamperLoc = GetUniformLocation("u_ShineDamper");
 	m_ReflectivityLoc = GetUniformLocation("u_Reflectivity");
 }

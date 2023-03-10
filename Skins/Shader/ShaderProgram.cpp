@@ -1,5 +1,4 @@
-#include <iostream>
-#include <fstream>
+#include <stdio.h>
 #include "ShaderProgram.h"
 #include "Log.h"
 
@@ -30,7 +29,7 @@ ShaderProgram::ShaderProgram(const std::string& filename)
 		// Get the info log
 		GLchar* infoLog = new GLchar[infoLogLength];
 		GLCall(glGetProgramInfoLog(m_ProgramID, infoLogLength, NULL, infoLog));
-		std::cerr << "ERROR: could not validate program \n" << infoLog << std::endl;
+		printf("ERROR: could not validate program \n%s\n", infoLog);
 		// Delete the array
 		delete[] infoLog;
 	}
@@ -60,25 +59,21 @@ void ShaderProgram::Unbind() const
 
 GLuint ShaderProgram::LoadShader(const std::string& filename, GLenum type)
 {
-	// Open the file
-	std::ifstream file;
-	file.open(filename.c_str());
-
-	// temp variables
-	std::string source, line;
-
-	if (file.is_open())
+	FILE* file;
+	if (fopen_s(&file, filename.c_str(), "r") != 0)
 	{
-		// Load file to string
-		while (std::getline(file, line))
-		{
-			source.append(line + "\n");
-		}
+		printf("Failed to open: %s\n", filename.c_str());
+		return -1;
 	}
-	else
+
+	std::string source;
+	char buffer[1024], * token;
+	while (fgets(buffer, 1024, file) != NULL)
 	{
-		std::cerr << "Unable to load shader: " << filename << std::endl;
+		source.append(buffer);
 	}
+	fclose(file);
+
 	// Create shader id
 	GLCall(GLuint id = glCreateShader(type));
 	// Preparing source to load to OpenGL
@@ -96,7 +91,7 @@ GLuint ShaderProgram::LoadShader(const std::string& filename, GLenum type)
 		GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
 		char* message = (char*)alloca(length * sizeof(char));
 		GLCall(glGetShaderInfoLog(id, length, &length, message));
-		std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << std::endl;
+		printf("Failed to compile %s\n", (type == GL_VERTEX_SHADER ? "vertex" : "fragment"));
 		GLCall(glDeleteShader(0));
 		return 0;
 	}
@@ -124,7 +119,7 @@ GLuint ShaderProgram::GetUniformLocation(const std::string& name)
 
 	GLCall(int location = glGetUniformLocation(m_ProgramID, name.c_str()));
 	if (location == -1)
-		std::cout << "Warning: uniform " << name << " doesn't exist!" << std::endl;
+		printf("Warning: uniform %s doesn't exist!\n", name.c_str());
 
 	m_UniformLocationCache[name] = location;
 	return location;

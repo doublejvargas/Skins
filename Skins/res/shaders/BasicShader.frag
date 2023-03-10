@@ -11,6 +11,7 @@ uniform sampler2D u_Texture;
 uniform vec3 u_LightColor;
 uniform float u_ShineDamper;
 uniform float u_Reflectivity;
+uniform float u_AmbientLight;
 
 void main()
 {
@@ -22,7 +23,7 @@ void main()
 	/* ----------- Specular/Diffuse Lighting ------------ */
 	// Compute how close the face is to facing the light
 	float brightness = dot(unitNormal, unitLightVector);
-	brightness = max(brightness, 0.0);
+	brightness = max(brightness, u_AmbientLight);
 
 	// Compute right shade of light color
 	vec3 diffuse = brightness * u_LightColor;
