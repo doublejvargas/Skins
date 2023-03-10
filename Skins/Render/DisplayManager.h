@@ -6,14 +6,13 @@ class DisplayManager
 {
 
 public:
-	DisplayManager();
 	DisplayManager(int width = 1280, int height = 720, const std::string& title = "OpenGL Window");
 	virtual ~DisplayManager();
 
 	bool IsWindowOpen() const;
 	void UpdateDisplay() const;
 	inline float GetAspectRatio() const { return m_AspectRatio; }
-	void ShowUPS(); // Updates per second
+	void ShowFPS(double& prevTime, int& frameCount); // Updates per second
 
 private:
 	GLFWwindow* m_Window;
