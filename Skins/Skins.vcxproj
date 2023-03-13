@@ -156,6 +156,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AppManager\ApplicationManager.cpp" />
     <ClCompile Include="Controller\Camera.cpp" />
+    <ClCompile Include="Menu\MenuClearColor.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
     <ClCompile Include="Render\Loader.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -177,6 +178,8 @@
   <ItemGroup>
     <ClInclude Include="AppManager\ApplicationManager.h" />
     <ClInclude Include="Controller\Camera.h" />
+    <ClInclude Include="Menu\Menu.h" />
+    <ClInclude Include="Menu\MenuClearColor.h" />
     <ClInclude Include="Model\Entity.h" />
     <ClInclude Include="Model\TexturedModel.h" />
     <ClInclude Include="Render\DisplayManager.h" />

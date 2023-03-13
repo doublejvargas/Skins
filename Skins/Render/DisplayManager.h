@@ -15,7 +15,10 @@ public:
 	bool IsWindowOpen() const;
 	void UpdateDisplay() const;
 	inline float GetAspectRatio() const { return m_AspectRatio; }
-	void ShowFPS(double& prevTime, int& frameCount); // Updates per second
+	void ShowFPS(double& prevTime, int& frameCount);
+
+	static void ImGuiNewFrame();
+	static void ImGuiFrameRender();
 
 private:
 	GLFWwindow* m_Window;

@@ -75,3 +75,16 @@ void DisplayManager::ShowFPS(double& prevTime, int& frameCount)
 		prevTime = currentTime;
 	}
 }
+
+void DisplayManager::ImGuiNewFrame()
+{
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+}
+
+void DisplayManager::ImGuiFrameRender()
+{
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
