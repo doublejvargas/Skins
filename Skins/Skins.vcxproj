@@ -156,6 +156,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AppManager\ApplicationManager.cpp" />
     <ClCompile Include="Controller\Camera.cpp" />
+    <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Menu\MenuClearColor.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
     <ClCompile Include="Render\Loader.cpp" />

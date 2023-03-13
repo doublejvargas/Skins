@@ -82,17 +82,33 @@ void ApplicationManager::Start()
 	double prevTime = glfwGetTime();
 	int frameCount = 0;
 
-	menu::MenuClearColor menu;
+	menu::Menu* currentMenu = nullptr;
+	menu::MainMenu* mainMenu = new menu::MainMenu(currentMenu);
+	currentMenu = mainMenu;
+
+	mainMenu->RegisterMenu<menu::MenuClearColor>("Clear Color");
+
 	while (m_DisplayManager->IsWindowOpen())
 	{
 		//entity.ChangeRotation(glm::vec3(n, n, n));
 		//camera.Move();
 		renderer.Clear();
-		menu.OnUpdate(0.0f);
-		menu.OnRender();
 		//shader.Bind();
 
 		DisplayManager::ImGuiNewFrame();
+		if (currentMenu)
+		{
+			currentMenu->OnUpdate(0.0f);
+			currentMenu->OnRender();
+			ImGui::Begin("Menu");
+			if (currentMenu != mainMenu && ImGui::Button("<-"))
+			{
+				delete currentMenu;
+				currentMenu = mainMenu;
+			}
+			currentMenu->OnImGuiRender();
+			ImGui::End();
+		}
 
 		//shader.LoadViewMatrix(camera);
 		//shader.LoadLight(light, 0.15f);
@@ -111,11 +127,13 @@ void ApplicationManager::Start()
 		//}
 		//shader.Unbind();
 
-		menu.OnImGuiRender();
-
 		DisplayManager::ImGuiFrameRender();
 
 		m_DisplayManager->UpdateDisplay();
 		m_DisplayManager->ShowFPS(prevTime, frameCount);
 	}
+
+	/*delete currentMenu;
+	if (currentMenu != mainMenu)
+		delete mainMenu;*/
 }
