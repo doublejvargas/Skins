@@ -14,8 +14,13 @@ public:
 
 	bool IsWindowOpen() const;
 	void UpdateDisplay() const;
+
 	inline float GetAspectRatio() const { return m_AspectRatio; }
+	inline GLFWwindow* GetWindow() const { return m_Window; }
+
 	void ShowFPS(double& prevTime, int& frameCount);
+
+	void initializeImGui();
 
 	static void ImGuiNewFrame();
 	static void ImGuiFrameRender();
@@ -24,4 +29,6 @@ private:
 	GLFWwindow* m_Window;
 	float m_AspectRatio;
 	std::string m_Title;
+
+	
 };

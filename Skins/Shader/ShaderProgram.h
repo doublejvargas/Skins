@@ -30,9 +30,9 @@ protected:
 	virtual void GetAllUniformLocations();
 
 	GLuint GetUniformLocation(const std::string& name);
-	void SetUniform1f(const std::string& name, float value);
-	void SetUniformVec3f(const std::string& name, const glm::vec3& value);
-	void SetUniformBool(const std::string& name, bool value);
-	void SetUniformMat4f(const std::string& name, const glm::mat4& matrix);
-	//void SetUniform1iv(const std::string& name, int count, const int* value);
+	void SetUniform1f(GLuint location, float value);
+	void SetUniformVec3f(GLuint location, const glm::vec3& value);
+	void SetUniformBool(GLuint location, bool value);
+	void SetUniformMat4f(GLuint location, const glm::mat4& matrix);
+	//void SetUniform1iv(GLuint location, int count, const int* value);
 };

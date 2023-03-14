@@ -158,6 +158,7 @@
     <ClCompile Include="Controller\Camera.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Menu\MenuClearColor.cpp" />
+    <ClCompile Include="Menu\SkinMenu.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
     <ClCompile Include="Render\Loader.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Controller\Camera.h" />
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="Menu\MenuClearColor.h" />
+    <ClInclude Include="Menu\SkinMenu.h" />
     <ClInclude Include="Model\Entity.h" />
     <ClInclude Include="Model\TexturedModel.h" />
     <ClInclude Include="Render\DisplayManager.h" />

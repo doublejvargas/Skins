@@ -15,6 +15,8 @@ namespace menu
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
 
+		void Clear();
+
 	};
 
 	class MainMenu : public Menu
@@ -25,14 +27,14 @@ namespace menu
 		void OnImGuiRender() override;
 
 		template<typename T>
-		void RegisterMenu(const std::string& name)
+		void RegisterMenu(const std::string& name, const std::string& modelpath, const std::string& texturepath)
 		{
 			std::cout << "Registering test " << name << std::endl;
-			m_Menus.push_back(std::make_pair(name, []() { return new T(); }));
+			m_Menus.push_back(std::make_pair(name, [&, modelpath, texturepath]() { return new T(modelpath, texturepath); }));
 		}
 
 	private:
 		Menu*& m_CurrentMenu;
-		std::vector < std::pair<std::string, std::function<Menu* ()>> >  m_Menus;
+		std::vector < std::pair<std::string, std::function<Menu* ()>> >  m_Menus; // this will contain all the weapon models
 	};
 }

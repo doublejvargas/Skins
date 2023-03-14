@@ -15,30 +15,30 @@ BasicShader::~BasicShader()
 
 void BasicShader::LoadTransformMatrix(const glm::mat4& matrix)
 {
-	SetUniformMat4f("u_TransformMatrix", matrix);
+	SetUniformMat4f(m_TransformMatrixLoc, matrix);
 }
 
 void BasicShader::LoadProjectionMatrix(const glm::mat4& matrix)
 {
-	SetUniformMat4f("u_ProjectionMatrix", matrix);
+	SetUniformMat4f(m_ProjectionMatrixLoc, matrix);
 }
 
 void BasicShader::LoadViewMatrix(Camera& camera)
 {
-	SetUniformMat4f("u_ViewMatrix", Math::CreateViewMatrix(camera));
+	SetUniformMat4f(m_ViewMatrixLoc, Math::CreateViewMatrix(camera));
 }
 
 void BasicShader::LoadLight(Light& light, float ambientLight)
 {
-	SetUniformVec3f("u_LightPosition", light.Position());
-	SetUniformVec3f("u_LightColor", light.Color());
-	SetUniform1f("u_AmbientLight", ambientLight);
+	SetUniformVec3f(m_LightPosLoc, light.Position());
+	SetUniformVec3f(m_LightColLoc, light.Color());
+	SetUniform1f(m_AmbientLightLoc, ambientLight);
 }
 
 void BasicShader::LoadShineVariables(float shinedamper, float reflectivity)
 {
-	SetUniform1f("u_ShineDamper", shinedamper);
-	SetUniform1f("u_Reflectivity", reflectivity);
+	SetUniform1f(m_ShineDamperLoc, shinedamper);
+	SetUniform1f(m_ReflectivityLoc, reflectivity);
 }
 
 void BasicShader::BindAttributes()

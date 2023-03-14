@@ -8,7 +8,7 @@ DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const
 	m_AspectRatio = (float)width / (float)height;
 	
 	// Set minimum OpenGL version and options
-	const char* glsl_version = "#version 330 core";
+	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -30,18 +30,12 @@ DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const
 
 	else
 		std::cerr << "ERROR: Failed to create window" << std::endl;
-
-	// Initialize ImGUI
-	ImGui::CreateContext();
-	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-	ImGui::StyleColorsDark();
-	
 }
 
 DisplayManager::~DisplayManager()
 {
 	// Cleanup ImGUI
+	std::cout << "Shutting down ImGui" << std::endl;
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
@@ -87,4 +81,16 @@ void DisplayManager::ImGuiFrameRender()
 {
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void DisplayManager::initializeImGui()
+{
+	const char* glsl_version = "#version 330 core";
+	// Initialize ImGUI
+	ImGui::CreateContext();
+	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+	ImGui::StyleColorsDark();
+
+	std::cout << "imgui initialized??" << std::endl;
 }

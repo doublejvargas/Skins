@@ -5,7 +5,7 @@
 class Camera
 {
 public:
-	Camera();
+	Camera(const glm::vec3& position);
 	virtual ~Camera();
 
 	void Move();

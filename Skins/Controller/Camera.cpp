@@ -1,8 +1,8 @@
 #include "Camera.h"
 #include <GLFW/glfw3.h>
 
-Camera::Camera()
-	: m_Position(glm::vec3(0, 0, 40)), m_Pitch(0.0f), m_Yaw(0.0f), m_Roll(0.0f)
+Camera::Camera(const glm::vec3& position)
+	: m_Position(position), m_Pitch(0.0f), m_Yaw(0.0f), m_Roll(0.0f)
 {
 }
 
@@ -12,7 +12,7 @@ Camera::~Camera()
 
 void Camera::Move()
 {
-	float sens = 0.8f;
+	float sens = 0.15f;
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
 		m_Position.y += sens;

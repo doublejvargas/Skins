@@ -23,6 +23,7 @@
     <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Menu\MenuClearColor.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
+    <ClCompile Include="Menu\SkinMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
@@ -334,6 +335,7 @@
     <ClInclude Include="vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="Menu\MenuClearColor.h" />
+    <ClInclude Include="Menu\SkinMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />
