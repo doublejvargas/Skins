@@ -1,10 +1,10 @@
 #pragma once
 #include<memory>
 #include "Menu.h"
-#include "Model/Entity.h"
-#include "Shader/BasicShader.h"
-#include "Render/Renderer.h"
-#include "Render/Loader.h"
+//#include "Model/Entity.h"
+//#include "Shader/BasicShader.h"
+//#include "Render/Renderer.h"
+//#include "Render/Loader.h"
 
 namespace menu
 {

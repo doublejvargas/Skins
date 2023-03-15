@@ -92,9 +92,12 @@ void ApplicationManager::Start()
 	currentMenu = mainMenu;
 
 	//mainMenu->RegisterMenu<menu::MenuClearColor>("Clear Color");
-	mainMenu->RegisterMenu<menu::SkinMenu>("elder vandal", "res/models/elderflame2.obj", "res/textures/elderflame.png");
-	mainMenu->RegisterMenu<menu::SkinMenu>("jett", "res/models/jett.obj", "res/textures/jett.png");
-	mainMenu->RegisterMenu<menu::SkinMenu>("dragon", "res/models/dragon.obj", "res/textures/dragon.png");
+	mainMenu->RegisterMenu<menu::SkinMenu>("ELDERFLAME", "res/models/AK_ELDERFLAME.obj", "res/textures/AK_ELDERFLAME.png");
+	mainMenu->RegisterMenu<menu::SkinMenu>("ORIGIN", "res/models/AK_ORIGIN.obj", "res/textures/AK_ORIGIN.png");
+	mainMenu->RegisterMenu<menu::SkinMenu>("ION", "res/models/AK_ION.obj", "res/textures/AK_ION.png");
+	mainMenu->RegisterMenu<menu::SkinMenu>("ONI", "res/models/AK_ONI.obj", "res/textures/AK_ONI.png");
+	mainMenu->RegisterMenu<menu::SkinMenu>("RUIN", "res/models/AK_RUIN.obj", "res/textures/AK_RUIN.png");
+	mainMenu->RegisterMenu<menu::SkinMenu>("CHRONO", "res/models/AK_CHRONO.obj", "res/textures/AK_CHRONO.png");
 
 	while (m_DisplayManager->IsWindowOpen())
 	{

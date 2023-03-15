@@ -2,6 +2,10 @@
 #include <functional>
 #include <vector>
 #include <iostream>
+#include "Model/Entity.h"
+#include "Shader/BasicShader.h"
+#include "Render/Renderer.h"
+#include "Render/Loader.h"
 
 namespace menu
 {
@@ -24,6 +28,8 @@ namespace menu
 	public:
 		MainMenu(Menu*& currentMenuPointer);
 
+		void OnUpdate(float deltaTime) override;
+		void OnRender() override;
 		void OnImGuiRender() override;
 
 		template<typename T>
@@ -35,6 +41,20 @@ namespace menu
 
 	private:
 		Menu*& m_CurrentMenu;
-		std::vector < std::pair<std::string, std::function<Menu* ()>> >  m_Menus; // this will contain all the weapon models
+		std::vector < std::pair<std::string, std::function<Menu* ()>> >  m_Menus;
+
+		std::unique_ptr<RawModel> m_RawModel;
+		std::unique_ptr<Texture> m_Texture;
+		std::unique_ptr<TexturedModel> m_TexturedModel;
+		std::unique_ptr<Entity> m_Entity;
+
+		std::unique_ptr<BasicShader> m_Shader;
+		std::unique_ptr<Renderer> m_Renderer;
+		std::unique_ptr<Light> m_Light;
+		std::unique_ptr<Camera> m_Camera;
+
+		std::unique_ptr<Loader> m_Loader;
+
+		glm::vec3 m_Translation;
 	};
 }
