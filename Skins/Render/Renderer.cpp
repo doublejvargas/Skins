@@ -12,7 +12,7 @@ Renderer::Renderer(BasicShader& shader, const float& aspect)
 	// Tell OpenGL to test for depth
 	GLCall(glEnable(GL_DEPTH_TEST));
 	// Set clear color
-	GLCall(glClearColor(0.1f, 0.2f, 0.3f, 1.0f));
+	GLCall(glClearColor(0.1f, 0.4f, 0.1f, 1.0f));
 
 	m_ProjectionMatrix = glm::perspective(FOV, aspect, NEAR_PLANE, FAR_PLANE);
 

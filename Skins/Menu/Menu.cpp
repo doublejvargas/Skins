@@ -20,8 +20,8 @@ namespace menu
 
 		m_RawModel = std::make_unique<RawModel>(OBJLoader::LoadObjModel("res/models/AK_DEFAULT.obj", *m_Loader));
 		m_Texture = std::make_unique<Texture>(m_Loader->LoadTexture("res/textures/AK_DEFAULT.png"));
-		m_Texture->SetShineDamper(10);
-		m_Texture->SetReflectivity(1);
+		//m_Texture->SetShineDamper(10);
+		//m_Texture->SetReflectivity(1);
 		m_TexturedModel = std::make_unique<TexturedModel>(*m_RawModel, *m_Texture);
 
 		m_Entity = std::make_unique<Entity>(*m_TexturedModel, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
@@ -48,20 +48,22 @@ namespace menu
 
 	void MainMenu::OnImGuiRender()
 	{
-
+		ImGui::Columns(2);
 		for (auto& menu : m_Menus)
 		{
-			if (ImGui::Button(menu.first.c_str()))
+			if (ImGui::Button(menu.first.c_str(), { 128, 64 }))
+			{
 				m_CurrentMenu = menu.second();
-				
+			}
+			ImGui::NextColumn();
 		}
 
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
 
 	void Menu::Clear()
 	{
-		GLCall(glClearColor(0.1f, 0.2f, 0.3f, 1.0f));
+		//GLCall(glClearColor(0.1f, 0.2f, 0.3f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 	}
 

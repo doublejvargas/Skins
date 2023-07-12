@@ -2,8 +2,6 @@
 #include <functional>
 #include <vector>
 #include <iostream>
-#include "Model/Entity.h"
-#include "Shader/BasicShader.h"
 #include "Render/Renderer.h"
 #include "Render/Loader.h"
 

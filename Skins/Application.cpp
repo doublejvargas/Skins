@@ -1,6 +1,6 @@
 #include "AppManager/ApplicationManager.h"
-#include <iostream>
 
+// Application's entry point
 int main()
 {
 	ApplicationManager app;

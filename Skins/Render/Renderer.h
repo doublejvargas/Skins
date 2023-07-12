@@ -1,7 +1,5 @@
 #pragma once
 
-//#include "Model/RawModel.h" //includes GL/glew.h
-#include "Model/TexturedModel.h" // includes rawmodel which also includes GL/glew
 #include "Model/Entity.h"
 #include "Shader/BasicShader.h"
 

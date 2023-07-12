@@ -5,12 +5,9 @@
 #include "ApplicationManager.h"
 #include "Render/OBJLoader.h"
 #include "Render/Renderer.h"
-#include "Model/TexturedModel.h"
-#include "Shader/BasicShader.h"
 #include "Toolbox/Math.h"
 #include "Menu/MenuClearColor.h"
 #include "Menu/SkinMenu.h"
-#include "Log.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -48,6 +45,7 @@ ApplicationManager::~ApplicationManager()
 
 void ApplicationManager::Start()
 {
+	std::cout << __cplusplus << '\n';
 	//Loader loader;
 
 	//BasicShader shader("BasicShader");
@@ -101,10 +99,6 @@ void ApplicationManager::Start()
 
 	while (m_DisplayManager->IsWindowOpen())
 	{
-		//entity.ChangeRotation(glm::vec3(n, n, n));
-		/*camera.Move();
-		renderer.Clear();
-		shader.Bind();*/
 
 		DisplayManager::ImGuiNewFrame();
 		if (currentMenu)
@@ -112,7 +106,13 @@ void ApplicationManager::Start()
 			currentMenu->Clear();
 			currentMenu->OnUpdate(0.0f);
 			currentMenu->OnRender();
-			ImGui::Begin("Menu");
+			
+			//Default position and size of menu on first run of application.
+			const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+			ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 83, main_viewport->WorkPos.y + 535), ImGuiCond_FirstUseEver);
+			ImGui::SetNextWindowSize(ImVec2(1100, 250), ImGuiCond_FirstUseEver);
+			
+			ImGui::Begin("Weapons");
 			if (currentMenu != mainMenu && ImGui::Button("<-"))
 			{
 				delete currentMenu;
@@ -121,23 +121,6 @@ void ApplicationManager::Start()
 			currentMenu->OnImGuiRender();
 			ImGui::End();
 		}
-
-		//shader.LoadViewMatrix(camera);
-		//shader.LoadLight(light, 0.15f);
-		///*renderer.Render(entity, shader);*/
-		//for (Entity& e : entities)
-		//{
-		//	renderer.Render(e, shader);
-		//	/*{
-		//		ImGui::Begin("Menu");
-		//		ImGui::SliderFloat3("Translation", &translation.x, -50.0f, 50.0f);
-		//		e.SetPosition(translation);
-		//		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		//		ImGui::End();
-		//	}*/
-
-		//}
-		//shader.Unbind();
 
 		DisplayManager::ImGuiFrameRender();
 
