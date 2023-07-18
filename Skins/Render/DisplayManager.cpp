@@ -1,18 +1,15 @@
 #include <iostream>
 #include "DisplayManager.h"
 
+const float DisplayManager::WIN_WIDTH = 1280.0f;
+const float DisplayManager::WIN_HEIGHT = 720.0f;
+const float DisplayManager::WIN_ASPECT_RATIO = WIN_WIDTH / WIN_HEIGHT;
+
 
 DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const std::string& title /*= "OpenGL Window"*/)
 {
 	m_Title = title;
 	m_AspectRatio = (float)width / (float)height;
-	
-	// Set minimum OpenGL version and options
-	
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	
 	// Create window using GLFW
 	m_Window = glfwCreateWindow(width, height, m_Title.c_str(), NULL, NULL);
@@ -27,9 +24,9 @@ DisplayManager::DisplayManager(int width /*= 1280*/, int height /*= 720*/, const
 		// Enable Vsync
 		glfwSwapInterval(1);
 	}
-
 	else
 		std::cerr << "ERROR: Failed to create window" << std::endl;
+
 }
 
 DisplayManager::~DisplayManager()
@@ -85,7 +82,7 @@ void DisplayManager::ImGuiFrameRender()
 
 void DisplayManager::initializeImGui()
 {
-	const char* glsl_version = "#version 330 core";
+	const char* glsl_version = "#version 460 core";
 	// Initialize ImGUI
 	ImGui::CreateContext();
 	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
@@ -93,7 +90,7 @@ void DisplayManager::initializeImGui()
 
 	// ImGui style
 	ImGuiStyle& style = ImGui::GetStyle();
-	style.Alpha = 0.55;
+	style.Alpha = 0.55f;
 // 	style.WindowFillAlphaDefault = 0.83;
 // 	style.ChildWindowRounding = 3;
 	style.WindowRounding = 3;

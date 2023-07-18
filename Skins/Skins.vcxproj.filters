@@ -24,6 +24,8 @@
     <ClCompile Include="Menu\MenuClearColor.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Menu\SkinMenu.cpp" />
+    <ClCompile Include="Model\Terrain.cpp" />
+    <ClCompile Include="Render\TerrainRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vendor\stb_image\stb_image.h" />
@@ -336,6 +338,8 @@
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="Menu\MenuClearColor.h" />
     <ClInclude Include="Menu\SkinMenu.h" />
+    <ClInclude Include="Model\Terrain.h" />
+    <ClInclude Include="Render\TerrainRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vendor\glm\detail\func_common.inl" />
@@ -476,5 +480,7 @@
     <None Include="vendor\glm\gtx\wrap.inl" />
     <None Include="res\shaders\BasicShader.frag" />
     <None Include="res\shaders\BasicShader.vert" />
+    <None Include="res\shaders\BasicTerrainShader.vert" />
+    <None Include="res\shaders\BasicTerrainShader.frag" />
   </ItemGroup>
 </Project>

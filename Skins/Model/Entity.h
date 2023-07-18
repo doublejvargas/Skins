@@ -6,8 +6,11 @@
 class Entity
 {
 public:
-	Entity(const TexturedModel& model, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
+	Entity(const TexturedModel& model, const glm::vec3& position = glm::vec3(0, 0, 0), const glm::vec3& rotation = glm::vec3(0, 0, 0), 
+		const glm::vec3& scale = glm::vec3(1, 1, 1))
 		: m_Model(model), m_Position(position), m_Rotation(rotation), m_Scale(scale) {}
+
+	Entity() {}
 
 	inline void ChangePosition(const glm::vec3& position) { m_Position += position; }
 	inline void ChangeRotation(const glm::vec3& rotation) { m_Rotation += rotation; }

@@ -1,10 +1,11 @@
+#include "TerrainRenderer.h"
 #include "Renderer.h"
 #include "Log.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "Toolbox/Math.h"
 #include "Model/TexturedModel.h"
 
-Renderer::Renderer(BasicShader& shader, const float& aspect)
+TerrainRenderer::TerrainRenderer(BasicShader& shader, const float& aspect)
 {
 	// Don't draw faces we can't see. Improves performance
 	GLCall(glEnable(GL_CULL_FACE));
@@ -14,27 +15,23 @@ Renderer::Renderer(BasicShader& shader, const float& aspect)
 	// Set clear color
 	GLCall(glClearColor(0.1f, 0.4f, 0.1f, 1.0f));
 
-	m_ProjectionMatrix = glm::perspective(glm::radians(FOV), aspect, NEAR_PLANE, FAR_PLANE);
+	m_ProjectionMatrix = glm::perspective(FOV, aspect, NEAR_PLANE, FAR_PLANE);
 
 	shader.Bind();
 	shader.LoadProjectionMatrix(m_ProjectionMatrix);
 	shader.Unbind();
 }
 
-Renderer::~Renderer()
+TerrainRenderer::~TerrainRenderer()
 {
 }
 
-void Renderer::Clear() const
+void TerrainRenderer::Clear() const
 {
-	//// Tell OpenGL to test for depth
-	//GLCall(glEnable(GL_DEPTH_TEST));
-	//// Set clear color
-	//GLCall(glClearColor(0.1f, 0.2f, 0.3f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
-void Renderer::Render(Entity& entity, BasicShader& shader)
+void TerrainRenderer::Render(Entity& entity, BasicShader& shader)
 {
 	// Get textured model and raw model
 	TexturedModel texmodel = entity.GetModel();
@@ -55,6 +52,7 @@ void Renderer::Render(Entity& entity, BasicShader& shader)
 	GLCall(glBindTexture(GL_TEXTURE_2D, texmodel.GetTexture().ID()));
 	// Draw the model
 	GLCall(glDrawElements(GL_TRIANGLES, frame.VertexCount(), GL_UNSIGNED_INT, 0));
+
 	// Disable attrib arrays / layout locations
 	GLCall(glDisableVertexAttribArray(0));
 	GLCall(glDisableVertexAttribArray(1));

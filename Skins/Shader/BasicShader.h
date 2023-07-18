@@ -9,7 +9,6 @@ class BasicShader : public ShaderProgram
 {
 public:
 	BasicShader(const std::string& filename);
-	virtual ~BasicShader();
 
 	void LoadTransformMatrix(const glm::mat4& matrix);
 	void LoadProjectionMatrix(const glm::mat4& matrix);

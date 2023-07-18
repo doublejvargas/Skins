@@ -9,7 +9,11 @@ class DisplayManager
 {
 
 public:
-	DisplayManager(int width = 1280, int height = 720, const std::string& title = "OpenGL Window");
+	static const float WIN_WIDTH;
+	static const float WIN_HEIGHT;
+	static const float WIN_ASPECT_RATIO;
+
+	DisplayManager(int width = WIN_WIDTH, int height = WIN_HEIGHT, const std::string& title = "OpenGL Window");
 	virtual ~DisplayManager();
 
 	bool IsWindowOpen() const;
@@ -30,5 +34,4 @@ private:
 	float m_AspectRatio;
 	std::string m_Title;
 
-	
 };

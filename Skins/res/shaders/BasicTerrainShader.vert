@@ -29,7 +29,7 @@ void main()
 	v_ToCameraVector = (inverse(u_ViewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
 
 	// Pass texture coordinates to fragment shader
-	v_TexCoord = a_TexCoord;
+	v_TexCoord = a_TexCoord * 40.0;
 
 	// Compute final position of object
 	gl_Position = u_ProjectionMatrix * u_ViewMatrix * worldPosition;

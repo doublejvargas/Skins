@@ -161,11 +161,13 @@
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Menu\MenuClearColor.cpp" />
     <ClCompile Include="Menu\SkinMenu.cpp" />
+    <ClCompile Include="Model\Terrain.cpp" />
     <ClCompile Include="Render\DisplayManager.cpp" />
     <ClCompile Include="Render\Loader.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Render\OBJLoader.cpp" />
     <ClCompile Include="Render\Renderer.cpp" />
+    <ClCompile Include="Render\TerrainRenderer.cpp" />
     <ClCompile Include="Shader\BasicShader.cpp" />
     <ClCompile Include="Shader\ShaderProgram.cpp" />
     <ClCompile Include="Toolbox\Math.cpp" />
@@ -186,6 +188,7 @@
     <ClInclude Include="Menu\MenuClearColor.h" />
     <ClInclude Include="Menu\SkinMenu.h" />
     <ClInclude Include="Model\Entity.h" />
+    <ClInclude Include="Model\Terrain.h" />
     <ClInclude Include="Model\TexturedModel.h" />
     <ClInclude Include="Render\DisplayManager.h" />
     <ClInclude Include="Render\Loader.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="Model\RawModel.h" />
     <ClInclude Include="Render\OBJLoader.h" />
     <ClInclude Include="Render\Renderer.h" />
+    <ClInclude Include="Render\TerrainRenderer.h" />
     <ClInclude Include="Shader\BasicShader.h" />
     <ClInclude Include="Shader\Light.h" />
     <ClInclude Include="Shader\ShaderProgram.h" />
@@ -494,6 +498,8 @@
   <ItemGroup>
     <None Include="res\shaders\BasicShader.frag" />
     <None Include="res\shaders\BasicShader.vert" />
+    <None Include="res\shaders\BasicTerrainShader.frag" />
+    <None Include="res\shaders\BasicTerrainShader.vert" />
     <None Include="vendor\glm\detail\func_common.inl" />
     <None Include="vendor\glm\detail\func_common_simd.inl" />
     <None Include="vendor\glm\detail\func_exponential.inl" />

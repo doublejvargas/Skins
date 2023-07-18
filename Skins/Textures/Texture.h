@@ -6,6 +6,7 @@ class Texture
 {
 public:
 	Texture(GLuint id) : m_TextureID(id) {}
+	Texture() : m_TextureID(0) {}
 
 	inline GLuint ID() const { return m_TextureID;  }
 	inline float GetShineDamper() { return m_ShineDamper; }

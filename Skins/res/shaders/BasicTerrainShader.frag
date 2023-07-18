@@ -14,12 +14,12 @@ uniform float u_Reflectivity;
 uniform float u_AmbientLight;
 
 void main()
-{
+{    
 
 	// Normalize the vectors
 	vec3 unitNormal = normalize(v_NormalVector);
 	vec3 unitLightVector = normalize(v_ToLightVector);
-
+    
 	/* ----------- Specular/Diffuse Lighting ------------ */
 	// Compute how close the face is to facing the light
 	float brightness = dot(unitNormal, unitLightVector);
@@ -37,7 +37,5 @@ void main()
 	float dampedSpecular = pow(specularFactor, u_ShineDamper);
 	vec3 finalSpecular = dampedSpecular * u_Reflectivity * u_LightColor;
 
-
-	// Final color is mix of texture and diffused light color
-	o_Color = vec4(diffuse, 1.0) * texture(u_Texture, v_TexCoord) + vec4(finalSpecular, 1.0);
+    o_Color = vec4(diffuse, 1.0) * texture(u_Texture, v_TexCoord) + vec4(finalSpecular, 1.0);
 }

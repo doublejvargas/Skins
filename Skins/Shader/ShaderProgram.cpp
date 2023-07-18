@@ -91,7 +91,7 @@ GLuint ShaderProgram::LoadShader(const std::string& filename, GLenum type)
 		GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
 		char* message = (char*)alloca(length * sizeof(char));
 		GLCall(glGetShaderInfoLog(id, length, &length, message));
-		printf("Failed to compile %s\n", (type == GL_VERTEX_SHADER ? "vertex" : "fragment"));
+		printf("Failed to compile %s %s\n", filename, (type == GL_VERTEX_SHADER ? "vertex" : "fragment"));
 		GLCall(glDeleteShader(0));
 		return 0;
 	}

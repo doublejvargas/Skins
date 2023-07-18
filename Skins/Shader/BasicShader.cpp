@@ -8,11 +8,6 @@ BasicShader::BasicShader(const std::string& filename)
 	GetAllUniformLocations();
 }
 
-BasicShader::~BasicShader()
-{
-}
-
-
 void BasicShader::LoadTransformMatrix(const glm::mat4& matrix)
 {
 	SetUniformMat4f(m_TransformMatrixLoc, matrix);
@@ -50,7 +45,7 @@ void BasicShader::BindAttributes()
 
 void BasicShader::GetAllUniformLocations()
 {
-	m_TransformMatrixLoc = GetUniformLocation("u_TransformMatrix"); // ? don't understand this
+	m_TransformMatrixLoc = GetUniformLocation("u_TransformMatrix");
 	m_ProjectionMatrixLoc = GetUniformLocation("u_ProjectionMatrix");
 	m_ViewMatrixLoc = GetUniformLocation("u_ViewMatrix");
 	m_LightPosLoc = GetUniformLocation("u_LightPosition");
