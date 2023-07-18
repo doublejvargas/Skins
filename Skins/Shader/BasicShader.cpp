@@ -36,6 +36,11 @@ void BasicShader::LoadShineVariables(float shinedamper, float reflectivity)
 	SetUniform1f(m_ReflectivityLoc, reflectivity);
 }
 
+void BasicShader::LoadSkyColor(const glm::vec3& rgb)
+{
+	SetUniformVec3f(m_SkyColorLoc, rgb);
+}
+
 void BasicShader::BindAttributes()
 {
 	BindAttribute(0, "a_Position");
@@ -53,4 +58,5 @@ void BasicShader::GetAllUniformLocations()
 	m_AmbientLightLoc = GetUniformLocation("u_AmbientLight");
 	m_ShineDamperLoc = GetUniformLocation("u_ShineDamper");
 	m_ReflectivityLoc = GetUniformLocation("u_Reflectivity");
+	m_SkyColorLoc = GetUniformLocation("u_SkyColor");
 }

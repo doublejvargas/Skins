@@ -28,7 +28,7 @@ void Camera::Move()
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_R) == GLFW_PRESS)
 	{
-		m_Position = glm::vec3(0, 0, 2);
+		m_Position = glm::vec3(0, 0, 1.5f);
 		m_Pitch = 0.0f;
 		m_Yaw = -90.0f;
 		m_Roll = 0.0f;

@@ -13,9 +13,9 @@ TerrainRenderer::TerrainRenderer(BasicShader& shader, const float& aspect)
 	// Tell OpenGL to test for depth
 	GLCall(glEnable(GL_DEPTH_TEST));
 	// Set clear color
-	GLCall(glClearColor(0.1f, 0.4f, 0.1f, 1.0f));
+	GLCall(glClearColor(RED, GREEN, BLUE, 1.0f));
 
-	m_ProjectionMatrix = glm::perspective(FOV, aspect, NEAR_PLANE, FAR_PLANE);
+	m_ProjectionMatrix = glm::perspective(glm::radians(FOV), aspect, NEAR_PLANE, FAR_PLANE);
 
 	shader.Bind();
 	shader.LoadProjectionMatrix(m_ProjectionMatrix);
@@ -47,6 +47,8 @@ void TerrainRenderer::Render(Entity& entity, BasicShader& shader)
 	// Load shine variables from texture
 	Texture texture = texmodel.GetTexture();
 	shader.LoadShineVariables(texture.GetShineDamper(), texture.GetReflectivity());
+	// Load skycolor for fog effect
+	shader.LoadSkyColor(glm::vec3(RED, GREEN, BLUE));
 	// Activate an OpenGL texture and tell it where the texture is
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	GLCall(glBindTexture(GL_TEXTURE_2D, texmodel.GetTexture().ID()));

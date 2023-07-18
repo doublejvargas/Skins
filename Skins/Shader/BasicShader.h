@@ -5,6 +5,10 @@
 #include "Controller/Camera.h"
 #include "Shader/Light.h"
 
+const float RED = 0.5f;
+const float GREEN = 0.5f;
+const float BLUE = 0.5f;
+
 class BasicShader : public ShaderProgram
 {
 public:
@@ -15,6 +19,7 @@ public:
 	void LoadViewMatrix(Camera& camera);
 	void LoadLight(Light& light, float ambientLight);
 	void LoadShineVariables(float shinedamper, float reflectivity);
+	void LoadSkyColor(const glm::vec3& rgb);
 
 private:
 	const std::string m_FilePath;
@@ -28,6 +33,7 @@ private:
 	GLuint m_AmbientLightLoc;
 	GLuint m_ShineDamperLoc;
 	GLuint m_ReflectivityLoc;
+	GLuint m_SkyColorLoc;
 	
 
 protected:

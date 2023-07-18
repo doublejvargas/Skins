@@ -4,6 +4,7 @@ in vec2 v_TexCoord;
 in vec3 v_NormalVector;
 in vec3 v_ToLightVector;
 in vec3 v_ToCameraVector;
+in float v_Visibility;
 
 layout(location = 0) out vec4 o_Color;
 
@@ -12,6 +13,7 @@ uniform vec3 u_LightColor;
 uniform float u_ShineDamper;
 uniform float u_Reflectivity;
 uniform float u_AmbientLight;
+uniform vec3 u_SkyColor;
 
 void main()
 {
@@ -38,6 +40,7 @@ void main()
 	vec3 finalSpecular = dampedSpecular * u_Reflectivity * u_LightColor;
 
 
-	// Final color is mix of texture and diffused light color
+	// Final color is mix of texture and diffused light color and fog
 	o_Color = vec4(diffuse, 1.0) * texture(u_Texture, v_TexCoord) + vec4(finalSpecular, 1.0);
+	o_Color = mix(vec4(u_SkyColor, 1.0), o_Color, v_Visibility);
 }

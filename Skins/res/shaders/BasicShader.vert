@@ -13,11 +13,21 @@ out vec2 v_TexCoord;
 out vec3 v_NormalVector;
 out vec3 v_ToLightVector;
 out vec3 v_ToCameraVector;
+out float v_Visibility;
+
+// Constant values
+const float density = 0.02;
+const float gradient = 1.5;
 
 void main()
 {
 	// Calculate the position of the object in the world
 	vec4 worldPosition = u_TransformMatrix * vec4(a_Position, 1.0);
+	
+	vec4 posRelativeToCam = u_ViewMatrix * worldPosition;
+
+	// Compute final position of object
+	gl_Position = u_ProjectionMatrix * posRelativeToCam;
 
 	// Multiply the normal by transformation matrix (fixes normal if object is rotated)
 	v_NormalVector = (u_TransformMatrix * vec4(a_NormalVector, 0.0)).xyz;
@@ -31,7 +41,8 @@ void main()
 	// Pass texture coordinates to fragment shader
 	v_TexCoord = a_TexCoord;
 
-	// Compute final position of object
-	gl_Position = u_ProjectionMatrix * u_ViewMatrix * worldPosition;
-	
+	// Computing values for fog
+	float distance = length(posRelativeToCam.xyz);
+	v_Visibility = exp(-pow((distance * density), gradient));
+	v_Visibility = clamp(v_Visibility, 0.0, 1.0);
 }

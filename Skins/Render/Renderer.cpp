@@ -11,8 +11,8 @@ Renderer::Renderer(BasicShader& shader, const float& aspect)
 	GLCall(glCullFace(GL_BACK));
 	// Tell OpenGL to test for depth
 	GLCall(glEnable(GL_DEPTH_TEST));
-	// Set clear color
-	GLCall(glClearColor(0.1f, 0.4f, 0.1f, 1.0f));
+	// Set clear color (also used for fog)
+	GLCall(glClearColor(RED, GREEN, BLUE, 1.0f));
 
 	m_ProjectionMatrix = glm::perspective(glm::radians(FOV), aspect, NEAR_PLANE, FAR_PLANE);
 
@@ -27,10 +27,6 @@ Renderer::~Renderer()
 
 void Renderer::Clear() const
 {
-	//// Tell OpenGL to test for depth
-	//GLCall(glEnable(GL_DEPTH_TEST));
-	//// Set clear color
-	//GLCall(glClearColor(0.1f, 0.2f, 0.3f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
@@ -50,6 +46,8 @@ void Renderer::Render(Entity& entity, BasicShader& shader)
 	// Load shine variables from texture
 	Texture texture = texmodel.GetTexture();
 	shader.LoadShineVariables(texture.GetShineDamper(), texture.GetReflectivity());
+	// Load skycolor for fog effect
+	shader.LoadSkyColor(glm::vec3(RED, GREEN, BLUE));
 	// Activate an OpenGL texture and tell it where the texture is
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	GLCall(glBindTexture(GL_TEXTURE_2D, texmodel.GetTexture().ID()));
